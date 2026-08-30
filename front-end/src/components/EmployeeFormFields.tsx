@@ -22,11 +22,15 @@ export function EmployeeFormFields({
 
         {/* First Name */}
         <div className="space-y-[0.5em]">
-          <label className="block text-sm font-medium text-gray-700">
+          <label
+            htmlFor="firstName"
+            className="block text-sm font-medium text-gray-700"
+          >
             First Name
           </label>
 
           <input
+            id="firstName"
             {...register("firstName")}
             className="w-full rounded-lg border border-gray-300 px-[1em] py-[0.75em]"
           />
@@ -36,11 +40,15 @@ export function EmployeeFormFields({
 
         {/* Middle Name */}
         <div className="space-y-[0.5em]">
-          <label className="block text-sm font-medium text-gray-700">
+          <label
+            htmlFor="middleName"
+            className="block text-sm font-medium text-gray-700"
+          >
             Middle Name
           </label>
 
           <input
+            id="middleName"
             {...register("middleName")}
             className="w-full rounded-lg border border-gray-300 px-[1em] py-[0.75em]"
           />
@@ -50,11 +58,15 @@ export function EmployeeFormFields({
 
         {/* Last Name */}
         <div className="space-y-[0.5em]">
-          <label className="block text-sm font-medium text-gray-700">
+          <label
+            htmlFor="lastName"
+            className="block text-sm font-medium text-gray-700"
+          >
             Last Name
           </label>
 
           <input
+            id="lastName"
             {...register("lastName")}
             className="w-full rounded-lg border border-gray-300 px-[1em] py-[0.75em]"
           />
@@ -67,13 +79,18 @@ export function EmployeeFormFields({
         <h2 className="border-b border-gray-200 pb-[0.5em] text-lg font-semibold">
           Contact Information
         </h2>
+
         {/* Email Address */}
         <div className="space-y-[0.5em]">
-          <label className="block text-sm font-medium text-gray-700">
+          <label
+            htmlFor="emailAddress"
+            className="block text-sm font-medium text-gray-700"
+          >
             Email Address
           </label>
 
           <input
+            id="emailAddress"
             {...register("emailAddress")}
             className="w-full rounded-lg border border-gray-300 px-[1em] py-[0.75em]"
           />
@@ -83,11 +100,15 @@ export function EmployeeFormFields({
 
         {/* Mobile Number */}
         <div className="space-y-[0.5em]">
-          <label className="block text-sm font-medium text-gray-700">
+          <label
+            htmlFor="mobileNumber"
+            className="block text-sm font-medium text-gray-700"
+          >
             Mobile Number
           </label>
 
           <input
+            id="mobileNumber"
             {...register("mobileNumber")}
             className="w-full rounded-lg border border-gray-300 px-[1em] py-[0.75em]"
           />
@@ -97,11 +118,15 @@ export function EmployeeFormFields({
 
         {/* Home Address */}
         <div className="space-y-[0.5em]">
-          <label className="block text-sm font-medium text-gray-700">
+          <label
+            htmlFor="homeAddress"
+            className="block text-sm font-medium text-gray-700"
+          >
             Home Address
           </label>
 
           <input
+            id="homeAddress"
             {...register("homeAddress")}
             className="w-full rounded-lg border border-gray-300 px-[1em] py-[0.75em]"
           />
@@ -114,13 +139,18 @@ export function EmployeeFormFields({
         <h2 className="border-b border-gray-200 pb-[0.5em] text-lg font-semibold">
           Employment Information
         </h2>
+
         {/* Contract Type */}
         <div className="space-y-[0.5em]">
-          <label className="block text-sm font-medium text-gray-700">
+          <label
+            htmlFor="contractType"
+            className="block text-sm font-medium text-gray-700"
+          >
             Contract Type
           </label>
 
           <select
+            id="contractType"
             {...register("contractType")}
             defaultValue=""
             className="w-full rounded-lg border border-gray-300 bg-white px-[1em] py-[0.75em]"
@@ -139,11 +169,15 @@ export function EmployeeFormFields({
 
         {/* Start Date */}
         <div className="space-y-[0.5em]">
-          <label className="block text-sm font-medium text-gray-700">
+          <label
+            htmlFor="startDate"
+            className="block text-sm font-medium text-gray-700"
+          >
             Start Date
           </label>
 
           <input
+            id="startDate"
             type="date"
             {...register("startDate")}
             className="w-full rounded-lg border border-gray-300 bg-white px-[1em] py-[0.75em]"
@@ -154,11 +188,15 @@ export function EmployeeFormFields({
 
         {/* End Date */}
         <div className="space-y-[0.5em]">
-          <label className="block text-sm font-medium text-gray-700">
+          <label
+            htmlFor="endDate"
+            className="block text-sm font-medium text-gray-700"
+          >
             End Date
           </label>
 
           <input
+            id="endDate"
             type="date"
             {...register("endDate")}
             className="w-full rounded-lg border border-gray-300 bg-white px-[1em] py-[0.75em]"
@@ -169,11 +207,15 @@ export function EmployeeFormFields({
 
         {/* Employment Type */}
         <div className="space-y-[0.5em]">
-          <label className="block text-sm font-medium text-gray-700">
+          <label
+            htmlFor="employmentType"
+            className="block text-sm font-medium text-gray-700"
+          >
             Employment Type
           </label>
 
           <select
+            id="employmentType"
             {...register("employmentType")}
             defaultValue=""
             className="w-full rounded-lg border border-gray-300 bg-white px-[1em] py-[0.75em]"
@@ -194,11 +236,15 @@ export function EmployeeFormFields({
 
         {/* Hours Per Week */}
         <div className="space-y-[0.5em]">
-          <label className="block text-sm font-medium text-gray-700">
+          <label
+            htmlFor="hoursPerWeek"
+            className="block text-sm font-medium text-gray-700"
+          >
             Hours Per Week
           </label>
 
           <input
+            id="hoursPerWeek"
             type="number"
             {...register("hoursPerWeek")}
             className="w-full rounded-lg border border-gray-300 px-[1em] py-[0.75em]"
