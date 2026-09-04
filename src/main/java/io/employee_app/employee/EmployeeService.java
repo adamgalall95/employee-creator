@@ -1,6 +1,7 @@
 package io.employee_app.employee;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
@@ -25,9 +26,8 @@ public class EmployeeService {
         return this.repo.findAll();
     }
 
-    public Employee getByID(long id) {
-        return this.repo.findById(id).orElseThrow(() -> new NotFoundException(
-                "Employee with id " + id + " was not found"));
+    public Optional<Employee> getByID(Long id) {
+        return this.repo.findById(id);
     }
 
     public Employee createEmployee(CreateEmployeeDTO data) {
@@ -51,17 +51,33 @@ public class EmployeeService {
         return this.repo.saveAndFlush(employee);
     }
 
-    public Employee updateEmployee(Long id, UpdateEmployeeDTO updates) {
-        Employee employee = getByID(id);
+    public Optional<Employee> updateEmployee(Long id, UpdateEmployeeDTO updates) {
+
+        Optional<Employee> result = this.getByID(id);
+
+        if (result.isEmpty()) {
+            return result;
+        }
+
+        Employee employee = result.get();
+
         mapper.map(updates, employee);
-        return this.repo.save(employee);
+
+        this.repo.saveAndFlush(employee);
+
+        return Optional.of(employee);
     }
 
-    public Employee deleteEmployee(Long id) {
-        Employee employee = getByID(id);
+    public boolean deleteEmployee(Long id) {
 
-        this.repo.deleteById(id);
-        return employee;
+        Optional<Employee> result = this.repo.findById(id);
+
+        if (result.isEmpty()) {
+            return false;
+        }
+
+        this.repo.delete(result.get());
+        return true;
     }
 
 }
