@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import io.employee_app.employee.dtos.CreateEmployeeDTO;
 import io.employee_app.employee.dtos.UpdateEmployeeDTO;
 import io.employee_app.employee.entities.Employee;
+import io.employee_app.common.exceptions.NotFoundException;
 import jakarta.validation.Valid;
 
 @RestController
@@ -35,7 +36,11 @@ public class EmployeeController {
 
     @GetMapping("/{id}")
     public ResponseEntity<Employee> findEmployeeById(@PathVariable Long id) {
-        Employee employee = this.service.getByID(id);
+
+        Employee employee = this.service.getByID(id)
+                .orElseThrow(() -> new NotFoundException(
+                        "Employee with id " + id + " was not found"));
+
         return ResponseEntity.ok(employee);
     }
 
@@ -51,14 +56,23 @@ public class EmployeeController {
             @PathVariable Long id,
             @RequestBody UpdateEmployeeDTO data) {
 
-        Employee employee = this.service.updateEmployee(id, data);
+        Employee employee = this.service.updateEmployee(id, data)
+                .orElseThrow(() -> new NotFoundException(
+                        "Employee with id " + id + " was not found"));
 
         return ResponseEntity.ok(employee);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Employee> deleteEmployee(@PathVariable Long id) {
-        this.service.deleteEmployee(id);
-        return ResponseEntity.noContent().build();
+    public ResponseEntity<Void> deleteEmployee(@PathVariable Long id) {
+
+        boolean isDeleted = this.service.deleteEmployee(id);
+
+        if (isDeleted) {
+            return ResponseEntity.noContent().build();
+        }
+
+        throw new NotFoundException(
+                "Employee with id " + id + " was not found");
     }
 }
