@@ -6,10 +6,8 @@ import java.util.Optional;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
-import io.employee_app.common.exceptions.NotFoundException;
 import io.employee_app.common.exceptions.UnprocessableContentException;
-import io.employee_app.employee.dtos.CreateEmployeeDTO;
-import io.employee_app.employee.dtos.UpdateEmployeeDTO;
+import io.employee_app.employee.dtos.EmployeeDTO;
 import io.employee_app.employee.entities.Employee;
 
 @Service
@@ -30,29 +28,27 @@ public class EmployeeService {
         return this.repo.findById(id);
     }
 
-    public Employee createEmployee(CreateEmployeeDTO data) {
+    public boolean getByEmail(String email) {
+        return this.repo.existsByEmailAddress(email);
+    }
 
-        if (data.getContractType().equals("Contract")
-                && data.getEndDate() == null) {
+    public Employee createEmployee(EmployeeDTO data) {
+        validateEmployeeRules(data);
 
+        // 2. Query the repository directly for the existence check
+        boolean emailExists = this.repo.existsByEmailAddress(data.getEmailAddress());
+        if (emailExists) {
             throw new UnprocessableContentException(
-                    "Contract employees must have an end date");
+                    "Employment with email " + data.getEmailAddress() + " exists");
         }
-
-        if (data.getEndDate() != null &&
-                data.getEndDate().isBefore(data.getStartDate())) {
-
-            throw new UnprocessableContentException(
-                    "End date cannot be before start date");
-        }
-
         Employee employee = this.mapper.map(data, Employee.class);
         employee.setEmploymentStatus("ACTIVE");
         return this.repo.saveAndFlush(employee);
     }
 
-    public Optional<Employee> updateEmployee(Long id, UpdateEmployeeDTO updates) {
+    public Optional<Employee> updateEmployee(Long id, EmployeeDTO updates) {
 
+        validateEmployeeRules(updates);
         Optional<Employee> result = this.getByID(id);
 
         if (result.isEmpty()) {
@@ -78,6 +74,41 @@ public class EmployeeService {
 
         this.repo.delete(result.get());
         return true;
+    }
+
+    public void validateEmployeeRules(EmployeeDTO data) {
+        if (data.getContractType().equals("Permanent")
+                && data.getEndDate() != null) {
+
+            throw new UnprocessableContentException(
+                    "Employment end date should be left empty for Permanent employees");
+        }
+
+        if (data.getContractType().equals("Contract")
+                && data.getEndDate() == null) {
+
+            throw new UnprocessableContentException(
+                    "Contract employees should have a contract end date");
+        }
+
+        if (data.getContractType().equals("Contract")
+                && data.getEndDate() != null && data.getEndDate().isBefore(data.getStartDate())) {
+
+            throw new UnprocessableContentException(
+                    "Contract employees must have an end date after start date");
+        }
+
+        if (data.getEmploymentType().equals("Full-time")
+                && data.getHoursPerWeek() != 38) {
+            throw new UnprocessableContentException(
+                    "Full-time employees must have 38 hours per week");
+        }
+
+        if (data.getEmploymentType().equals("Part-time")
+                && (data.getHoursPerWeek() > 37 || data.getHoursPerWeek() < 1)) {
+            throw new UnprocessableContentException(
+                    "Part-time employees must have less than 38 hours per week and more than 0 hours per week");
+        }
     }
 
 }

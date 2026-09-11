@@ -10,7 +10,7 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 
-public class CreateEmployeeDTO {
+public class EmployeeDTO {
 
     // Personal Information
 
@@ -54,7 +54,7 @@ public class CreateEmployeeDTO {
     @Max(38)
     private Double hoursPerWeek;
 
-    public CreateEmployeeDTO() {
+    public EmployeeDTO() {
     }
 
     public String getFirstName() {
