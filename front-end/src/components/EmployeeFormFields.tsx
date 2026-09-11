@@ -1,18 +1,54 @@
-import type { UseFormRegister, FieldErrors } from "react-hook-form";
+import {
+  type UseFormRegister,
+  type FieldErrors,
+  type Control,
+  type UseFormSetValue,
+  useWatch,
+} from "react-hook-form";
 import { employeeSchema } from "../schemas/employeeSchema";
 import type { z } from "zod";
+import { useEffect } from "react";
 
 type FormData = z.input<typeof employeeSchema>;
 
 type EmployeeFormFieldsProps = {
   register: UseFormRegister<FormData>;
   errors: FieldErrors<FormData>;
+  control: Control<FormData>;
+  setValue: UseFormSetValue<FormData>;
 };
 
 export function EmployeeFormFields({
   register,
   errors,
+  control,
+  setValue,
 }: EmployeeFormFieldsProps) {
+  const employmentType = useWatch({
+    control,
+    name: "employmentType",
+  });
+
+  const contractType = useWatch({
+    control,
+    name: "contractType",
+  });
+
+  useEffect(() => {
+    if (employmentType === "Full-time") {
+      setValue("hoursPerWeek", 38);
+    }
+    if (employmentType === "Part-time") {
+      setValue("hoursPerWeek", 0);
+    }
+  }, [employmentType, setValue]);
+
+  useEffect(() => {
+    if (contractType === "Permanent") {
+      setValue("endDate", null);
+    }
+  }, [contractType, setValue]);
+
   return (
     <div className="space-y-[1em]">
       <section className="space-y-[1em]">
@@ -44,7 +80,7 @@ export function EmployeeFormFields({
             htmlFor="middleName"
             className="block text-sm font-medium text-gray-700"
           >
-            Middle Name
+            Middle Name - Optionnal
           </label>
 
           <input
@@ -192,13 +228,14 @@ export function EmployeeFormFields({
             htmlFor="endDate"
             className="block text-sm font-medium text-gray-700"
           >
-            End Date
+            End Date - Optionnal
           </label>
 
           <input
             id="endDate"
             type="date"
             {...register("endDate")}
+            disabled={contractType === "Permanent"}
             className="w-full rounded-lg border border-gray-300 bg-white px-[1em] py-[0.75em]"
           />
 
@@ -247,6 +284,7 @@ export function EmployeeFormFields({
             id="hoursPerWeek"
             type="number"
             {...register("hoursPerWeek")}
+            disabled={employmentType === "Full-time"}
             className="w-full rounded-lg border border-gray-300 px-[1em] py-[0.75em]"
           />
 

@@ -1,16 +1,20 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { useNavigate, Link } from "react-router";
+import { Link } from "react-router";
 import { employeeSchema } from "../schemas/employeeSchema";
 import { EmployeeFormFields } from "../components/EmployeeFormFields";
+import { useCreateEmployee } from "../hooks/useCreateEmployee";
 
 export function EmployeesCreatePage() {
-  const navigate = useNavigate();
+  const { mutate, isError, error } = useCreateEmployee();
+
   const {
     register,
     handleSubmit,
     reset,
+    control,
+    setValue,
     formState: { errors },
   } = useForm<
     z.input<typeof employeeSchema>,
@@ -20,11 +24,9 @@ export function EmployeesCreatePage() {
     resolver: zodResolver(employeeSchema),
   });
 
-  const onSubmit = handleSubmit((data) => {
-    console.log("Create Request");
-    console.log(data);
-    navigate("/");
-  });
+  const onSubmit = (data: z.output<typeof employeeSchema>) => {
+    mutate(data);
+  };
 
   return (
     <main className="mx-auto w-full max-w-3xl p-[1.5em]">
@@ -42,10 +44,16 @@ export function EmployeesCreatePage() {
         </p>
       </div>
       <form
-        onSubmit={onSubmit}
+        onSubmit={handleSubmit(onSubmit)}
         className="rounded-2xl border border-gray-200 bg-white px-[1em] py-[1.5em] shadow-sm"
       >
-        <EmployeeFormFields register={register} errors={errors} />
+        <EmployeeFormFields
+          register={register}
+          errors={errors}
+          control={control}
+          setValue={setValue}
+        />
+        {isError && <p className="mb-[1em] text-red-600">{error.message}</p>}
         <div className="mt-[1.5em] space-y-[0.75em] border-t border-gray-200 pt-[1.5em]">
           <button
             type="submit"
