@@ -27,7 +27,7 @@ export const employeeSchema = z
     startDate: z.coerce.date(),
 
     endDate: z.preprocess(
-      (value) => (value === "" ? undefined : value),
+      (value) => (value === "" || value === null ? undefined : value),
       z.coerce.date().optional(),
     ),
 
