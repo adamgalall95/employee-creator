@@ -19,8 +19,7 @@ import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.modelmapper.ModelMapper;
 
-import io.employee_app.employee.dtos.CreateEmployeeDTO;
-import io.employee_app.employee.dtos.UpdateEmployeeDTO;
+import io.employee_app.employee.dtos.EmployeeDTO;
 import io.employee_app.employee.entities.Employee;
 
 @ExtendWith(MockitoExtension.class)
@@ -49,7 +48,7 @@ public class EmployeeServiceTest {
     @Test
     public void create_WhenEmployeeValid_SaveEmployeeInDb() {
         // arrange
-        CreateEmployeeDTO dto = mock(CreateEmployeeDTO.class);
+        EmployeeDTO dto = mock(EmployeeDTO.class);
 
         when(dto.getContractType()).thenReturn("Permanent");
         when(dto.getEndDate()).thenReturn(null);
@@ -113,7 +112,7 @@ public class EmployeeServiceTest {
     public void update_whenEmployeeDoesNotExists_DoesnNotSaveEmployee() {
         // arrange
         when(this.repo.findById(anyLong())).thenReturn(Optional.empty());
-        UpdateEmployeeDTO dto = new UpdateEmployeeDTO();
+        EmployeeDTO dto = new EmployeeDTO();
 
         // act
         this.employeeService.updateEmployee(1L, dto);
@@ -131,7 +130,7 @@ public class EmployeeServiceTest {
         fakeEmployee.setId(1L);
         fakeEmployee.setFirstName("Adam");
 
-        UpdateEmployeeDTO dto = new UpdateEmployeeDTO();
+        EmployeeDTO dto = new EmployeeDTO();
 
         when(this.repo.findById(1L))
                 .thenReturn(Optional.of(fakeEmployee));
