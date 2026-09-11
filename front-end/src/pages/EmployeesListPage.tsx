@@ -1,22 +1,18 @@
 import { EmployeesCard } from "../components/EmployeesCard";
-import type { Employee } from "../types/Employee";
-import { useState, useEffect } from "react";
-import { fetchEmployees } from "../services/EmployeeAPIService";
 import { Link } from "react-router";
+import { useEmployees } from "../hooks/useEmployees";
 
 export function EmployeesListPage() {
-  const [employees, setEmployees] = useState<Employee[]>([]);
-  useEffect(() => {
-    async function loadEmployees() {
-      try {
-        const employees = await fetchEmployees();
-        setEmployees(employees);
-      } catch (error) {
-        console.error("Failed to fetch data:", error);
-      }
-    }
-    loadEmployees();
-  }, []);
+  const { data: employees = [], isLoading, isError, error } = useEmployees();
+
+  if (isLoading) {
+    return <p>Loading employees...</p>;
+  }
+
+  if (isError) {
+    return <p>{error.message}</p>;
+  }
+
   return (
     <main className="mx-auto w-full max-w-6xl px-[1em] py-[1.5em]">
       <div className="my-[1.5em]">

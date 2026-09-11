@@ -12,10 +12,19 @@ type FormData = z.input<typeof employeeSchema>;
 function TestForm() {
   const {
     register,
+    control,
+    setValue,
     formState: { errors },
   } = useForm<FormData>();
 
-  return <EmployeeFormFields register={register} errors={errors} />;
+  return (
+    <EmployeeFormFields
+      register={register}
+      errors={errors}
+      control={control}
+      setValue={setValue}
+    />
+  );
 }
 
 describe("EmployeeFormFields", () => {
