@@ -100,4 +100,48 @@ public class EmployeeDTO {
     public Double getHoursPerWeek() {
         return hoursPerWeek;
     }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public void setMiddleName(String middleName) {
+        this.middleName = middleName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public void setEmailAddress(String emailAddress) {
+        this.emailAddress = emailAddress;
+    }
+
+    public void setMobileNumber(String mobileNumber) {
+        this.mobileNumber = mobileNumber;
+    }
+
+    public void setHomeAddress(String homeAddress) {
+        this.homeAddress = homeAddress;
+    }
+
+    public void setContractType(String contractType) {
+        this.contractType = contractType;
+    }
+
+    public void setStartDate(LocalDate startDate) {
+        this.startDate = startDate;
+    }
+
+    public void setEndDate(LocalDate endDate) {
+        this.endDate = endDate;
+    }
+
+    public void setEmploymentType(String employmentType) {
+        this.employmentType = employmentType;
+    }
+
+    public void setHoursPerWeek(Double hoursPerWeek) {
+        this.hoursPerWeek = hoursPerWeek;
+    }
 }
