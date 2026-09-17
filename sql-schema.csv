@@ -1,0 +1,14 @@
+Field,Type,Null,Key,Default,Extra
+id,bigint,NO,PRI,NULL,auto_increment
+first_name,varchar(255),NO,,NULL,
+middle_name,varchar(255),YES,,NULL,
+last_name,varchar(255),NO,,NULL,
+email_address,varchar(255),NO,,NULL,
+mobile_number,varchar(255),NO,,NULL,
+home_address,varchar(255),NO,,NULL,
+contract_type,varchar(255),NO,,NULL,
+start_date,date,NO,,NULL,
+end_date,date,YES,,NULL,
+employment_type,varchar(255),NO,,NULL,
+hours_per_week,double,YES,,NULL,
+employment_status,varchar(255),NO,,NULL,

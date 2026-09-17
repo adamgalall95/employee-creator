@@ -1,6 +1,8 @@
-# Employee Management App
+# Full-Stack Employee Management App
 
-[![GitHub Repository](https://img.shields.io/badge/GitHub-Repository-black?logo=github)](https://github.com/adamgalall95/employee-creator)
+![Backend Tests](https://github.com/adamgalall95/employee-creator/actions/workflows/maven.yml/badge.svg)
+
+![Frontend Tests](https://github.com/adamgalall95/employee-creator/actions/workflows/node.js.yml/badge.svg)
 
 A full-stack **HR Employee Management System** built with React, TypeScript, Spring Boot and MySQL.
 
@@ -75,6 +77,10 @@ React and TypeScript provide the frontend, while React Query handles communicati
 Spring Boot provides the REST API and JPA handles database access.
 
 Zod and React Hook Form are used for form validation. The backend also validates requests and enforces business rules before employee information is saved.
+
+## Database Schema
+
+![ERD](docs/images/ERD.png)
 
 ---
 
