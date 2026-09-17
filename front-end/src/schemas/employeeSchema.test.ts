@@ -12,9 +12,9 @@ describe("employeeSchema", () => {
       homeAddress: "123 Main Street",
       contractType: "Permanent",
       startDate: "2026-09-01",
-      endDate: "2027-09-01",
+      endDate: "",
       employmentType: "Full-time",
-      hoursPerWeek: 30,
+      hoursPerWeek: 38,
     };
 
     const result = employeeSchema.safeParse(employee);
@@ -34,7 +34,7 @@ describe("employeeSchema", () => {
       startDate: "2026-09-01",
       endDate: "",
       employmentType: "Full-time",
-      hoursPerWeek: 2,
+      hoursPerWeek: 38,
     };
 
     const result = employeeSchema.safeParse(employee);
