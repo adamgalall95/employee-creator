@@ -22,7 +22,6 @@ The system allows HR staff to add new employees to an organisation, manage emplo
 
 ![Update Employee](docs/images/UpdateEmployee.png)
 
-- **GitHub:** https://github.com/adamgalall95/employee-creator
 - **Hosted link:** TBC
 
 The app allows users to create, view, update and delete employees.
@@ -289,7 +288,3 @@ Each layer tests a different part of the application.
 No open-source license has currently been added to the project.
 
 ---
-
-## Further Details / Related Projects
-
-- **Repository:** https://github.com/adamgalall95/
