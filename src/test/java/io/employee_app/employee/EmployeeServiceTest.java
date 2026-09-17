@@ -52,6 +52,8 @@ public class EmployeeServiceTest {
 
         when(dto.getContractType()).thenReturn("Permanent");
         when(dto.getEndDate()).thenReturn(null);
+        when(dto.getEmploymentType()).thenReturn("Full-time");
+        when(dto.getHoursPerWeek()).thenReturn(38.0);
 
         Employee fakeEmployee = new Employee();
         fakeEmployee.setId(1L);
@@ -112,7 +114,12 @@ public class EmployeeServiceTest {
     public void update_whenEmployeeDoesNotExists_DoesnNotSaveEmployee() {
         // arrange
         when(this.repo.findById(anyLong())).thenReturn(Optional.empty());
-        EmployeeDTO dto = new EmployeeDTO();
+        EmployeeDTO dto = mock(EmployeeDTO.class);
+
+        when(dto.getContractType()).thenReturn("Permanent");
+        when(dto.getEndDate()).thenReturn(null);
+        when(dto.getEmploymentType()).thenReturn("Full-time");
+        when(dto.getHoursPerWeek()).thenReturn(38.0);
 
         // act
         this.employeeService.updateEmployee(1L, dto);
@@ -130,7 +137,12 @@ public class EmployeeServiceTest {
         fakeEmployee.setId(1L);
         fakeEmployee.setFirstName("Adam");
 
-        EmployeeDTO dto = new EmployeeDTO();
+        EmployeeDTO dto = mock(EmployeeDTO.class);
+
+        when(dto.getContractType()).thenReturn("Permanent");
+        when(dto.getEndDate()).thenReturn(null);
+        when(dto.getEmploymentType()).thenReturn("Full-time");
+        when(dto.getHoursPerWeek()).thenReturn(38.0);
 
         when(this.repo.findById(1L))
                 .thenReturn(Optional.of(fakeEmployee));

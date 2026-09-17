@@ -182,7 +182,7 @@ public class EmployeeEndToEndTest {
                 .log().body()
                 .statusCode(HttpStatus.UNPROCESSABLE_CONTENT.value())
                 .body("message",
-                        equalTo("Contract employees must have an end date"))
+                        equalTo("Contract employees should have a contract end date"))
                 .body(matchesJsonSchemaInClasspath(
                         "schemas/api-error-schema.json"));
     }
