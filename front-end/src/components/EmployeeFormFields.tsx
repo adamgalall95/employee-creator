@@ -80,7 +80,7 @@ export function EmployeeFormFields({
             htmlFor="middleName"
             className="block text-sm font-medium text-gray-700"
           >
-            Middle Name - Optionnal
+            Middle Name
           </label>
 
           <input
@@ -228,7 +228,7 @@ export function EmployeeFormFields({
             htmlFor="endDate"
             className="block text-sm font-medium text-gray-700"
           >
-            End Date - Optionnal
+            End Date
           </label>
 
           <input

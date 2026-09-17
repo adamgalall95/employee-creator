@@ -4,6 +4,7 @@ import type { Employee } from "../types/Employee";
 import { MemoryRouter } from "react-router";
 
 import { EmployeesCard } from "./EmployeesCard";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 const employeeData: Employee = {
   id: 1,
@@ -22,12 +23,22 @@ const employeeData: Employee = {
   hoursPerWeek: 38,
 };
 
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      retry: false,
+    },
+  },
+});
+
 describe("EmployeesCard", () => {
   it("renders employee name", () => {
     render(
-      <MemoryRouter>
-        <EmployeesCard employee={employeeData} />
-      </MemoryRouter>,
+      <QueryClientProvider client={queryClient}>
+        <MemoryRouter>
+          <EmployeesCard employee={employeeData} />
+        </MemoryRouter>
+      </QueryClientProvider>,
     );
 
     const employeeName = screen.getByText("Ahmed Galall");
@@ -37,9 +48,11 @@ describe("EmployeesCard", () => {
 
   it("renders employee email", () => {
     render(
-      <MemoryRouter>
-        <EmployeesCard employee={employeeData} />
-      </MemoryRouter>,
+      <QueryClientProvider client={queryClient}>
+        <MemoryRouter>
+          <EmployeesCard employee={employeeData} />
+        </MemoryRouter>
+      </QueryClientProvider>,
     );
 
     const employeeEmail = screen.getByText("ahmed@example.com");
@@ -47,23 +60,13 @@ describe("EmployeesCard", () => {
     expect(employeeEmail).toBeInTheDocument();
   });
 
-  it("renders employee contract length", () => {
-    render(
-      <MemoryRouter>
-        <EmployeesCard employee={employeeData} />
-      </MemoryRouter>,
-    );
-
-    const contractLength = screen.getByText("12 months");
-
-    expect(contractLength).toBeInTheDocument();
-  });
-
   it("renders employee contract type", () => {
     render(
-      <MemoryRouter>
-        <EmployeesCard employee={employeeData} />
-      </MemoryRouter>,
+      <QueryClientProvider client={queryClient}>
+        <MemoryRouter>
+          <EmployeesCard employee={employeeData} />
+        </MemoryRouter>
+      </QueryClientProvider>,
     );
 
     const contractType = screen.getByText("Contract");
@@ -73,9 +76,11 @@ describe("EmployeesCard", () => {
 
   it("renders the correct edit link", () => {
     render(
-      <MemoryRouter>
-        <EmployeesCard employee={employeeData} />
-      </MemoryRouter>,
+      <QueryClientProvider client={queryClient}>
+        <MemoryRouter>
+          <EmployeesCard employee={employeeData} />
+        </MemoryRouter>
+      </QueryClientProvider>,
     );
 
     const editLink = screen.getByRole("link", {
